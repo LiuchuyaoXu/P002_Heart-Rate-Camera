@@ -29,78 +29,78 @@
 #define I2C_SlAVE_CTRL_ADDR     0X2A
 #define I2C_XYZ_DATA_CFG_ADDR   0x0E
 
-// #define I2C_RELEASE_SDA_PORT    PORTB
-// #define I2C_RELEASE_SCL_PORT    PORTB
-// #define I2C_RELEASE_SDA_GPIO    GPIOB
-// #define I2C_RELEASE_SCL_GPIO    GPIOB
-// #define I2C_RELEASE_SDA_PIN     4U
-// #define I2C_RELEASE_SCL_PIN     3U
-// #define I2C_RELEASE_BUS_COUNT   100U
+#define I2C_RELEASE_SDA_PORT    PORTB
+#define I2C_RELEASE_SCL_PORT    PORTB
+#define I2C_RELEASE_SDA_GPIO    GPIOB
+#define I2C_RELEASE_SCL_GPIO    GPIOB
+#define I2C_RELEASE_SDA_PIN     4U
+#define I2C_RELEASE_SCL_PIN     3U
+#define I2C_RELEASE_BUS_COUNT   100U
 
 i2c_master_handle_t i2cHandle;
 
 volatile bool i2cCompletionFlag = false;
 volatile bool i2cNakFlag        = false;
 
-// static void i2c_release_bus_delay(void)
-// {
-//     uint32_t i = 0;
-//     for (i = 0; i < I2C_RELEASE_BUS_COUNT; i++)
-//     {
-//         __NOP();
-//     }
-// }
+static void i2c_release_bus_delay(void)
+{
+    uint32_t i = 0;
+    for (i = 0; i < I2C_RELEASE_BUS_COUNT; i++)
+    {
+        __NOP();
+    }
+}
 
-// void BOARD_I2C_ReleaseBus(void)
-// {
-//     uint8_t i = 0;
-//     gpio_pin_config_t pin_config;
-//     port_pin_config_t i2c_pin_config = {0};
+void BOARD_I2C_ReleaseBus(void)
+{
+    uint8_t i = 0;
+    gpio_pin_config_t pin_config;
+    port_pin_config_t i2c_pin_config = {0};
 
-//     /* Config pin mux as gpio */
-//     i2c_pin_config.pullSelect = kPORT_PullUp;
-//     i2c_pin_config.mux = kPORT_MuxAsGpio;
+    /* Config pin mux as gpio */
+    i2c_pin_config.pullSelect = kPORT_PullUp;
+    i2c_pin_config.mux = kPORT_MuxAsGpio;
 
-//     pin_config.pinDirection = kGPIO_DigitalOutput;
-//     pin_config.outputLogic = 1U;
-//     CLOCK_EnableClock(kCLOCK_PortB);
-//     PORT_SetPinConfig(I2C_RELEASE_SCL_PORT, I2C_RELEASE_SCL_PIN, &i2c_pin_config);
-//     PORT_SetPinConfig(I2C_RELEASE_SDA_PORT, I2C_RELEASE_SDA_PIN, &i2c_pin_config);
+    pin_config.pinDirection = kGPIO_DigitalOutput;
+    pin_config.outputLogic = 1U;
+    CLOCK_EnableClock(kCLOCK_PortB);
+    PORT_SetPinConfig(I2C_RELEASE_SCL_PORT, I2C_RELEASE_SCL_PIN, &i2c_pin_config);
+    PORT_SetPinConfig(I2C_RELEASE_SDA_PORT, I2C_RELEASE_SDA_PIN, &i2c_pin_config);
 
-//     GPIO_PinInit(I2C_RELEASE_SCL_GPIO, I2C_RELEASE_SCL_PIN, &pin_config);
-//     GPIO_PinInit(I2C_RELEASE_SDA_GPIO, I2C_RELEASE_SDA_PIN, &pin_config);
+    GPIO_PinInit(I2C_RELEASE_SCL_GPIO, I2C_RELEASE_SCL_PIN, &pin_config);
+    GPIO_PinInit(I2C_RELEASE_SDA_GPIO, I2C_RELEASE_SDA_PIN, &pin_config);
 
-//     /* Drive SDA low first to simulate a start */
-//     GPIO_PinWrite(I2C_RELEASE_SDA_GPIO, I2C_RELEASE_SDA_PIN, 0U);
-//     i2c_release_bus_delay();
+    /* Drive SDA low first to simulate a start */
+    GPIO_PinWrite(I2C_RELEASE_SDA_GPIO, I2C_RELEASE_SDA_PIN, 0U);
+    i2c_release_bus_delay();
 
-//     /* Send 9 pulses on SCL and keep SDA high */
-//     for (i = 0; i < 9; i++)
-//     {
-//         GPIO_PinWrite(I2C_RELEASE_SCL_GPIO, I2C_RELEASE_SCL_PIN, 0U);
-//         i2c_release_bus_delay();
+    /* Send 9 pulses on SCL and keep SDA high */
+    for (i = 0; i < 9; i++)
+    {
+        GPIO_PinWrite(I2C_RELEASE_SCL_GPIO, I2C_RELEASE_SCL_PIN, 0U);
+        i2c_release_bus_delay();
 
-//         GPIO_PinWrite(I2C_RELEASE_SDA_GPIO, I2C_RELEASE_SDA_PIN, 1U);
-//         i2c_release_bus_delay();
+        GPIO_PinWrite(I2C_RELEASE_SDA_GPIO, I2C_RELEASE_SDA_PIN, 1U);
+        i2c_release_bus_delay();
 
-//         GPIO_PinWrite(I2C_RELEASE_SCL_GPIO, I2C_RELEASE_SCL_PIN, 1U);
-//         i2c_release_bus_delay();
-//         i2c_release_bus_delay();
-//     }
+        GPIO_PinWrite(I2C_RELEASE_SCL_GPIO, I2C_RELEASE_SCL_PIN, 1U);
+        i2c_release_bus_delay();
+        i2c_release_bus_delay();
+    }
 
-//     /* Send stop */
-//     GPIO_PinWrite(I2C_RELEASE_SCL_GPIO, I2C_RELEASE_SCL_PIN, 0U);
-//     i2c_release_bus_delay();
+    /* Send stop */
+    GPIO_PinWrite(I2C_RELEASE_SCL_GPIO, I2C_RELEASE_SCL_PIN, 0U);
+    i2c_release_bus_delay();
 
-//     GPIO_PinWrite(I2C_RELEASE_SDA_GPIO, I2C_RELEASE_SDA_PIN, 0U);
-//     i2c_release_bus_delay();
+    GPIO_PinWrite(I2C_RELEASE_SDA_GPIO, I2C_RELEASE_SDA_PIN, 0U);
+    i2c_release_bus_delay();
 
-//     GPIO_PinWrite(I2C_RELEASE_SCL_GPIO, I2C_RELEASE_SCL_PIN, 1U);
-//     i2c_release_bus_delay();
+    GPIO_PinWrite(I2C_RELEASE_SCL_GPIO, I2C_RELEASE_SCL_PIN, 1U);
+    i2c_release_bus_delay();
 
-//     GPIO_PinWrite(I2C_RELEASE_SDA_GPIO, I2C_RELEASE_SDA_PIN, 1U);
-//     i2c_release_bus_delay();
-// }
+    GPIO_PinWrite(I2C_RELEASE_SDA_GPIO, I2C_RELEASE_SDA_PIN, 1U);
+    i2c_release_bus_delay();
+}
 
 static void i2cCallback(I2C_Type *base, i2c_master_handle_t *handle, status_t status, void *userData)
 {
@@ -197,8 +197,8 @@ int main(void)
     masterConfig.baudRate_Bps = I2C_BAUDRATE;
     I2C_MasterInit(BOARD_ACCEL_I2C_BASEADDR, &masterConfig, I2C_CLK_FREQ);
 
-    uint8_t startMessage[] = "Program starts.\n\r";
-    LPUART_WriteBlocking(UART, startMessage, sizeof(startMessage) / sizeof(startMessage[0]));
+    // uint8_t startMessage[] = "Program starts.\n\r";
+    // LPUART_WriteBlocking(UART, startMessage, sizeof(startMessage) / sizeof(startMessage[0]));
     
     I2C_MasterTransferCreateHandle(I2C, &i2cHandle, i2cCallback, NULL);
     i2cWrite(I2C, I2C_SLAVE_ADDR, I2C_SlAVE_CTRL_ADDR , 0x00);
@@ -220,7 +220,7 @@ int main(void)
         z = ((int16_t)(((readBuffer[5] * 256) | readBuffer[6]))) / 4;
 
         PRINTF("status = 0x%x , x = %5d , y = %5d , z = %5d \r\n", status, x, y, z);
+        // uint8_t debugMessage[] = "DEBUG MESSAGE.\n\r";
+        // LPUART_WriteBlocking(UART,  debugMessage, sizeof(debugMessage) / sizeof(debugMessage[0]));
     }
-    // uint8_t debugMessage[] = "DEBUG MESSAGE.\n\r";
-    // LPUART_WriteBlocking(UART,  debugMessage, sizeof(debugMessage) / sizeof(debugMessage[0]));
 }
