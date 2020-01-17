@@ -7,9 +7,10 @@
 
   <Targets>
     <Target>
-      <TargetName>Target 1</TargetName>
+      <TargetName>Iss1</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -47,14 +48,14 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>.\</OutputDirectory>
+          <OutputDirectory>.\Objects\</OutputDirectory>
           <OutputName>P002</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
-          <ListingPath>.\</ListingPath>
+          <ListingPath>.\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -125,47 +126,6 @@
             <HexOffset>0</HexOffset>
             <Oh166RecLen>16</Oh166RecLen>
           </OPTHX>
-          <Simulator>
-            <UseSimulator>0</UseSimulator>
-            <LoadApplicationAtStartup>1</LoadApplicationAtStartup>
-            <RunToMain>1</RunToMain>
-            <RestoreBreakpoints>1</RestoreBreakpoints>
-            <RestoreWatchpoints>1</RestoreWatchpoints>
-            <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
-            <RestoreFunctions>1</RestoreFunctions>
-            <RestoreToolbox>1</RestoreToolbox>
-            <LimitSpeedToRealTime>0</LimitSpeedToRealTime>
-            <RestoreSysVw>1</RestoreSysVw>
-          </Simulator>
-          <Target>
-            <UseTarget>1</UseTarget>
-            <LoadApplicationAtStartup>1</LoadApplicationAtStartup>
-            <RunToMain>1</RunToMain>
-            <RestoreBreakpoints>1</RestoreBreakpoints>
-            <RestoreWatchpoints>1</RestoreWatchpoints>
-            <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
-            <RestoreFunctions>0</RestoreFunctions>
-            <RestoreToolbox>1</RestoreToolbox>
-            <RestoreTracepoints>1</RestoreTracepoints>
-            <RestoreSysVw>1</RestoreSysVw>
-          </Target>
-          <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>0</TargetSelection>
-          <SimDlls>
-            <CpuDll></CpuDll>
-            <CpuDllArguments></CpuDllArguments>
-            <PeripheralDll></PeripheralDll>
-            <PeripheralDllArguments></PeripheralDllArguments>
-            <InitializationFile></InitializationFile>
-          </SimDlls>
-          <TargetDlls>
-            <CpuDll></CpuDll>
-            <CpuDllArguments></CpuDllArguments>
-            <PeripheralDll></PeripheralDll>
-            <PeripheralDllArguments></PeripheralDllArguments>
-            <InitializationFile></InitializationFile>
-            <Driver>BIN\UL2CM3.DLL</Driver>
-          </TargetDlls>
         </DebugOption>
         <Utilities>
           <Flash1>
@@ -173,7 +133,7 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
+            <Capability>1</Capability>
             <DriverSelection>-1</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
@@ -420,10 +380,240 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>Source Group 1</GroupName>
+          <GroupName>Source</GroupName>
+          <Files>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\main.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>::Board Support</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::Device</GroupName>
         </Group>
       </Groups>
     </Target>
   </Targets>
+
+  <RTE>
+    <apis/>
+    <components>
+      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.3.0" condition="ARMv6_7_8-M Device">
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.6.0"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Board Support" Cgroup="SDK Project Template" Csub="project_template" Cvariant="frdmkl03z" Cvendor="NXP" Cversion="1.0.0" condition="project_template.frdmkl03z">
+        <package license="Licenses.txt" name="FRDM-KL03Z_BSP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="SDK Drivers" Csub="adc" Cvendor="NXP" Cversion="2.0.0" condition="device.MKL03Z4_driver.common">
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="SDK Drivers" Csub="clock" Cvendor="NXP" Cversion="2.1.0" condition="device.MKL03Z4_driver.common">
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="SDK Drivers" Csub="common" Cvendor="NXP" Cversion="2.0.0" condition="device.MKL03Z4_driver.common">
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="SDK Drivers" Csub="flash" Cvendor="NXP" Cversion="2.4.1" condition="device.MKL03Z4">
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="SDK Drivers" Csub="gpio" Cvendor="NXP" Cversion="2.2.1" condition="device.MKL03Z4_driver.common">
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="SDK Drivers" Csub="i2c" Cvendor="NXP" Cversion="2.0.5" condition="device.MKL03Z4_driver.common">
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="SDK Drivers" Csub="lpuart" Cvendor="NXP" Cversion="2.2.4" condition="device.MKL03Z4_driver.common">
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="SDK Drivers" Csub="port" Cvendor="NXP" Cversion="2.0.2" condition="device.MKL03Z4_driver.common">
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="SDK Drivers" Csub="smc" Cvendor="NXP" Cversion="2.0.3" condition="device.MKL03Z4_driver.flash">
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="SDK Utilities" Csub="debug_console" Cvendor="NXP" Cversion="1.0.0" condition="device.MKL03Z4">
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="devices.MKL03Z4_platform.Include_core_cm0plus">
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </component>
+    </components>
+    <files>
+      <file attr="config" category="sourceC" name="project_template\board.c" version="1.0.0">
+        <instance index="0">RTE\Board_Support\MKL03Z32VFK4\board.c</instance>
+        <component Cclass="Board Support" Cgroup="SDK Project Template" Csub="project_template" Cvariant="frdmkl03z" Cvendor="NXP" Cversion="1.0.0" condition="project_template.frdmkl03z"/>
+        <package license="Licenses.txt" name="FRDM-KL03Z_BSP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="project_template\board.h" version="1.0.0">
+        <instance index="0">RTE\Board_Support\MKL03Z32VFK4\board.h</instance>
+        <component Cclass="Board Support" Cgroup="SDK Project Template" Csub="project_template" Cvariant="frdmkl03z" Cvendor="NXP" Cversion="1.0.0" condition="project_template.frdmkl03z"/>
+        <package license="Licenses.txt" name="FRDM-KL03Z_BSP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="sourceC" name="project_template\clock_config.c" version="1.0.0">
+        <instance index="0">RTE\Board_Support\MKL03Z32VFK4\clock_config.c</instance>
+        <component Cclass="Board Support" Cgroup="SDK Project Template" Csub="project_template" Cvariant="frdmkl03z" Cvendor="NXP" Cversion="1.0.0" condition="project_template.frdmkl03z"/>
+        <package license="Licenses.txt" name="FRDM-KL03Z_BSP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="project_template\clock_config.h" version="1.0.0">
+        <instance index="0">RTE\Board_Support\MKL03Z32VFK4\clock_config.h</instance>
+        <component Cclass="Board Support" Cgroup="SDK Project Template" Csub="project_template" Cvariant="frdmkl03z" Cvendor="NXP" Cversion="1.0.0" condition="project_template.frdmkl03z"/>
+        <package license="Licenses.txt" name="FRDM-KL03Z_BSP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="sourceC" name="project_template\peripherals.c" version="1.0.0">
+        <instance index="0">RTE\Board_Support\MKL03Z32VFK4\peripherals.c</instance>
+        <component Cclass="Board Support" Cgroup="SDK Project Template" Csub="project_template" Cvariant="frdmkl03z" Cvendor="NXP" Cversion="1.0.0" condition="project_template.frdmkl03z"/>
+        <package license="Licenses.txt" name="FRDM-KL03Z_BSP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="project_template\peripherals.h" version="1.0.0">
+        <instance index="0">RTE\Board_Support\MKL03Z32VFK4\peripherals.h</instance>
+        <component Cclass="Board Support" Cgroup="SDK Project Template" Csub="project_template" Cvariant="frdmkl03z" Cvendor="NXP" Cversion="1.0.0" condition="project_template.frdmkl03z"/>
+        <package license="Licenses.txt" name="FRDM-KL03Z_BSP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="sourceC" name="project_template\pin_mux.c" version="1.0.0">
+        <instance index="0">RTE\Board_Support\MKL03Z32VFK4\pin_mux.c</instance>
+        <component Cclass="Board Support" Cgroup="SDK Project Template" Csub="project_template" Cvariant="frdmkl03z" Cvendor="NXP" Cversion="1.0.0" condition="project_template.frdmkl03z"/>
+        <package license="Licenses.txt" name="FRDM-KL03Z_BSP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="project_template\pin_mux.h" version="1.0.0">
+        <instance index="0">RTE\Board_Support\MKL03Z32VFK4\pin_mux.h</instance>
+        <component Cclass="Board Support" Cgroup="SDK Project Template" Csub="project_template" Cvariant="frdmkl03z" Cvendor="NXP" Cversion="1.0.0" condition="project_template.frdmkl03z"/>
+        <package license="Licenses.txt" name="FRDM-KL03Z_BSP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="linkerScript" condition="devices.MKL03Z32xxx4_mdk" name="arm\MKL03Z32xxx4_flash.scf" version="1.0.0">
+        <instance index="0">RTE\Device\MKL03Z32VFK4\MKL03Z32xxx4_flash.scf</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="devices.MKL03Z4_platform.Include_core_cm0plus"/>
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="linkerScript" condition="devices.MKL03Z32xxx4_mdk" name="arm\MKL03Z32xxx4_ram.scf" version="1.0.0">
+        <instance index="0">RTE\Device\MKL03Z32VFK4\MKL03Z32xxx4_ram.scf</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="devices.MKL03Z4_platform.Include_core_cm0plus"/>
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="MKL03Z4.h" version="1.0.0">
+        <instance index="0">RTE\Device\MKL03Z32VFK4\MKL03Z4.h</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="devices.MKL03Z4_platform.Include_core_cm0plus"/>
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="MKL03Z4_features.h" version="1.0.0">
+        <instance index="0">RTE\Device\MKL03Z32VFK4\MKL03Z4_features.h</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="devices.MKL03Z4_platform.Include_core_cm0plus"/>
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="fsl_device_registers.h" version="1.0.0">
+        <instance index="0">RTE\Device\MKL03Z32VFK4\fsl_device_registers.h</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="devices.MKL03Z4_platform.Include_core_cm0plus"/>
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="sourceAsm" condition="mdk" name="arm\startup_MKL03Z4.s" version="1.0.0">
+        <instance index="0">RTE\Device\MKL03Z32VFK4\startup_MKL03Z4.s</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="devices.MKL03Z4_platform.Include_core_cm0plus"/>
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="sourceC" name="system_MKL03Z4.c" version="1.0.0">
+        <instance index="0">RTE\Device\MKL03Z32VFK4\system_MKL03Z4.c</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="devices.MKL03Z4_platform.Include_core_cm0plus"/>
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" name="system_MKL03Z4.h" version="1.0.0">
+        <instance index="0">RTE\Device\MKL03Z32VFK4\system_MKL03Z4.h</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="devices.MKL03Z4_platform.Include_core_cm0plus"/>
+        <package license="Licenses.txt" name="MKL03Z4_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="10.0.1"/>
+        <targetInfos>
+          <targetInfo name="Iss1"/>
+        </targetInfos>
+      </file>
+    </files>
+  </RTE>
 
 </Project>
