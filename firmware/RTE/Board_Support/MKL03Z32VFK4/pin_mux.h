@@ -60,11 +60,6 @@ typedef enum _pin_mux_direction
 extern "C" {
 #endif
 
-/*!
- * @brief Calls initialization functions.
- *
- */
-void BOARD_InitBootPins(void);
 
 #define SOPT5_LPUART0RXSRC_LPUART_RX 0x00u /*!<@brief LPUART0 Receive Data Source Select: LPUART_RX pin */
 
@@ -73,6 +68,11 @@ void BOARD_InitBootPins(void);
  *
  */
 void BOARD_InitPins(void);
+
+/*!
+ *
+ */
+void BOARD_I2C_ConfigurePins(void);
 
 #if defined(__cplusplus)
 }

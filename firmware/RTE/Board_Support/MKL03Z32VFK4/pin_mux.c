@@ -49,16 +49,7 @@ processor_version: 0.0.8
 #include "fsl_port.h"
 #include "pin_mux.h"
 
-/* FUNCTION ************************************************************************************************************
- *
- * Function Name : BOARD_InitBootPins
- * Description   : Calls initialization functions.
- *
- * END ****************************************************************************************************************/
-void BOARD_InitBootPins(void)
-{
-    BOARD_InitPins();
-}
+
 
 /* clang-format off */
 /*
@@ -95,6 +86,55 @@ void BOARD_InitPins(void)
 
                   /* LPUART0 Receive Data Source Select: LPUART_RX pin. */
                   | SIM_SOPT5_LPUART0RXSRC(SOPT5_LPUART0RXSRC_LPUART_RX));
+}
+
+/* clang-format off */
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_I2C_ConfigurePins:
+- options: {coreID: core0, enableClock: 'true'}
+- pin_list:
+  - {pin_num: '17', peripheral: I2C0, signal: SCL, pin_signal: PTB3/IRQ_10/I2C0_SCL/LPUART0_TX, pull_select: up, pull_enable: enable}
+  - {pin_num: '18', peripheral: I2C0, signal: SDA, pin_signal: PTB4/IRQ_11/I2C0_SDA/LPUART0_RX, pull_select: up, pull_enable: enable}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+/* clang-format on */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_I2C_ConfigurePins
+ *
+ * END ****************************************************************************************************************/
+void BOARD_I2C_ConfigurePins(void)
+{
+    /* Port B Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortB);
+
+    const port_pin_config_t portb3_pin17_config = {/* Internal pull-up resistor is enabled */
+                                                   kPORT_PullUp,
+                                                   /* Slow slew rate is configured */
+                                                   kPORT_SlowSlewRate,
+                                                   /* Passive filter is disabled */
+                                                   kPORT_PassiveFilterDisable,
+                                                   /* Low drive strength is configured */
+                                                   kPORT_LowDriveStrength,
+                                                   /* Pin is configured as I2C0_SCL */
+                                                   kPORT_MuxAlt2};
+    /* PORTB3 (pin 17) is configured as I2C0_SCL */
+    PORT_SetPinConfig(PORTB, 3U, &portb3_pin17_config);
+
+    const port_pin_config_t portb4_pin18_config = {/* Internal pull-up resistor is enabled */
+                                                   kPORT_PullUp,
+                                                   /* Slow slew rate is configured */
+                                                   kPORT_SlowSlewRate,
+                                                   /* Passive filter is disabled */
+                                                   kPORT_PassiveFilterDisable,
+                                                   /* Low drive strength is configured */
+                                                   kPORT_LowDriveStrength,
+                                                   /* Pin is configured as I2C0_SDA */
+                                                   kPORT_MuxAlt2};
+    /* PORTB4 (pin 18) is configured as I2C0_SDA */
+    PORT_SetPinConfig(PORTB, 4U, &portb4_pin18_config);
 }
 /***********************************************************************************************************************
  * EOF
