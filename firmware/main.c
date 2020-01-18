@@ -219,7 +219,12 @@ int main(void)
         y = ((int16_t)(((readBuffer[3] * 256) | readBuffer[4]))) / 4;
         z = ((int16_t)(((readBuffer[5] * 256) | readBuffer[6]))) / 4;
 
-        PRINTF("status = 0x%x , x = %5d , y = %5d , z = %5d \r\n", status, x, y, z);
+        uint32_t accel = x*x + y*y + z*z;
+        if(accel > 8000000) {
+           PRINTF("x"); 
+        }
+
+        // PRINTF("status = 0x%x , x = %5d , y = %5d , z = %5d \r\n", status, x, y, z);
         // uint8_t debugMessage[] = "DEBUG MESSAGE.\n\r";
         // LPUART_WriteBlocking(UART,  debugMessage, sizeof(debugMessage) / sizeof(debugMessage[0]));
     }
